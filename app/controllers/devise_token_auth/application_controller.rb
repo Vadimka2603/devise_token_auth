@@ -38,7 +38,9 @@ module DeviseTokenAuth
       return ActiveModel::Serializer.setup do |config|
         config.adapter == :json_api
       end if ActiveModel::Serializer.respond_to?(:setup)
-      return ActiveModel::Serializer.config.adapter == :json_api
+      return ActiveModel::Serializer.setup do |config|
+        config.adapter == :json_api
+      end
     end
 
   end
