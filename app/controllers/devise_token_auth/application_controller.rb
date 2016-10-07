@@ -1,6 +1,7 @@
 module DeviseTokenAuth
   class ApplicationController < DeviseController
     include DeviseTokenAuth::Concerns::SetUserByToken
+    require 'active_model_serializers'
 
     def resource_data(opts={})
       response_data = opts[:resource_json] || @resource.as_json
@@ -38,7 +39,7 @@ module DeviseTokenAuth
       return ::ActiveModel::Serializer.setup do |config|
         config.adapter == :json_api
       end if ::ActiveModel::Serializer.respond_to?(:setup)
-      return ActiveModelSerializers.config.adapter = ::ActiveModel::Serializer::Adapter::JsonApi
+      return ::ActiveModelSerializers.config.adapter = ::ActiveModel::Serializer::Adapter::JsonApi
     end
 
   end
